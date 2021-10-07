@@ -6,6 +6,8 @@ import 'package:news_app/Page/Home.dart';
 // // import 'package:intl_phone_field/intl_phone_field.dart';
 // import 'package:firebase/firebase.dart' as fb;
 
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);
@@ -45,30 +47,51 @@ class _RegistrationState extends State<Registration> {
         //     userOTP: otpcontroller.text);
         // print(res);
         // if (res) {
-          print("OTP Verified and Log in.....");
-          final UserCredential user = await auth.createUserWithEmailAndPassword(
-              email: useremailcontroller.text,
-              password: userpasswordcontroller.text);
-          setState(() {
-            UID = user.user!.uid;
-          });
-          await firestore.collection("users").doc(UID).set({
-            "username": username,
+        // print("OTP Verified and Log in.....");
+        final UserCredential user = await auth.createUserWithEmailAndPassword(
+            email: useremailcontroller.text,
+            password: userpasswordcontroller.text);
+        setState(() {
+          UID = user.user!.uid;
+        });
+        await firestore.collection("users").doc(UID).set({
+          "username": username,
+          "email": useremail,
+          "PhoneNo": PhoneNo,
+          "Bio": Bio,
+          "password": userpassword,
+          "UserProfile": UserProfile,
+          "UID": user.user!.uid
+        });
+        final String apiUrl = "https://news-node-app.herokuapp.com/auth/signUp";
+        Future<List<dynamic>> fetchUsers() async {
+          var result = await http.post(Uri.parse(apiUrl), body: {
             "email": useremail,
-            "PhoneNo": PhoneNo,
-            "Bio": Bio,
             "password": userpassword,
-            "UserProfile": UserProfile,
-            "UID": user.user!.uid
+            "Name": username,
+            "phoneNo": PhoneNo,
           });
+          print(
+              "===================Get data form mongodb =============================");
+          print(json.decode(result.body));
+                  Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Login(),
+          ),
+        );
+          // print(json.decode(result.body[0]));
+          return json.decode(result.body);
+        }
 
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Home(),
-            ),
-          );
-        // } else {
+        fetchUsers();
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => Home(),
+        //   ),
+        // );
+        // // } else {
         //   print("Invalid OTP");
         // }
       } catch (e) {
@@ -174,7 +197,7 @@ class _RegistrationState extends State<Registration> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       // initialRoute: '/signup',
-      title: 'LinkedUp',
+      title: 'News App',
       home: Scaffold(
         // appBar: AppBar(
         //   centerTitle: true,
@@ -219,7 +242,7 @@ class _RegistrationState extends State<Registration> {
                                 width: 220,
                                 decoration: BoxDecoration(
                                   image: const DecorationImage(
-                                      image: AssetImage('images/Logo.png'),
+                                    image: AssetImage('images/Logo.png'),
                                     fit: BoxFit.fill,
                                   ),
                                   borderRadius: BorderRadius.circular(10),
@@ -283,7 +306,7 @@ class _RegistrationState extends State<Registration> {
                               //     ),
                               //   ),
                               // ),
-                           
+
                               SizedBox(height: 15),
                               TextField(
                                 controller: phonenocontroller,

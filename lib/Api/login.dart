@@ -33,7 +33,7 @@ class _LoginState extends State<Login> {
     // print("objectobjectobjectobjectobjectobjectobjectobjectobject");
     // final String useremail = useremailcontroller.text;
     // final String userpassword = userpasswordcontroller.text;
-    const String useremail = 'pak@gmail.com';
+    const String useremail = 'mudassirmukhtar4@gmail.com';
     const String userpassword = 'qwerty';
     try {
       final UserCredential user = await auth.signInWithEmailAndPassword(
@@ -48,15 +48,27 @@ class _LoginState extends State<Login> {
       print(
           '=========================User is Login...=============================');
       final String apiUrl = "https://news-node-app.herokuapp.com/auth/signin";
-
       Future<List<dynamic>> fetchUsers() async {
         var result = await http.post(Uri.parse(apiUrl), body: {
-          "email": "mudassirmmukhta4@gmail.com",
-          "password": "qwerty"
+          "email": useremail,
+          "password": userpassword,
         });
         print(
             "===================Get data form mongodb =============================");
         print(json.decode(result.body));
+        // print(json.decode(result.body[0]));
+              Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(
+              Name: Name,
+              Email: Email,
+              PhoneNo: PhoneNo,
+              Bio: Bio,
+              UID: UID,
+              UserProfile: UserProfile),
+        ),
+      );
         return json.decode(result.body);
       }
 
@@ -85,18 +97,7 @@ class _LoginState extends State<Login> {
       //     ),
       //   ),
       // );
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomePage(
-              Name: Name,
-              Email: Email,
-              PhoneNo: PhoneNo,
-              Bio: Bio,
-              UID: UID,
-              UserProfile: UserProfile),
-        ),
-      );
+
 
       // ++++++++++++++++++++faile++++++++++++++++++++
       // Navigator.pushReplacementNamed(context, '/Home', arguments: {

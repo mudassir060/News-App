@@ -13,14 +13,15 @@ class Favourit extends StatefulWidget {
 final String apiUrl =
     // "https://newsapi.org/v2/everything?q=tesla&from=2021-08-29&sortBy=publishedAt&apiKey=279ff2d9334747f980557d5520f7a04f";
     // Top headlines from TechCrunch right now
-    "https://news-node-app.herokuapp.com/auth/signUp";
+    "https://news-node-app.herokuapp.com/favouritenews/favouritenewsget/mudassirmukhtar4@gmail.com";
 
 Future<List<dynamic>> fetchUsers() async {
-  var result = await http.post(Uri.parse(apiUrl),
-      body: {"email": "mudassirmmukhta4@gmail.com", "password": "qwerty"});
+  print("=====================fetchUsers===========================");
+  var result = await http.get(Uri.parse(apiUrl),);
   print("================================================");
+  print(result);
   print(json.decode(result.body));
-  return json.decode(result.body)["articles"];
+  return json.decode(result.body);
 }
 
 class _FavouritState extends State<Favourit> {
@@ -28,8 +29,9 @@ class _FavouritState extends State<Favourit> {
   Widget build(BuildContext context) {
     fetchUsers();
     return const MaterialApp(
+            debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Text("Favour Screen"),
+        body: Text("Favour     hj Screen"),
       ),
     );
   }

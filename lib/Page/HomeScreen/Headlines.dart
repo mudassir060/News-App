@@ -59,6 +59,7 @@ class _HeadlinesState extends State<Headlines> {
     // var subDt = DateTime.now().subtract(Duration(days: 10, hours: 10));
     // print(addDt.isBefore(subDt)); // tr
     return MaterialApp(
+            debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: FutureBuilder<List<dynamic>>(
           future: fetchUsers(),

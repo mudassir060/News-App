@@ -35,8 +35,8 @@ class _AppState extends State<App> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             home: Scaffold(
-              body: Login(),
-              // body: HomePage(Name: "Name", Email: "Email", PhoneNo: "PhoneNo", Bio: "Bio", UID: "UID", UserProfile: "UserProfile"),
+              // body: Login(),
+              body: HomePage(Name: "Name", Email: "Email", PhoneNo: "PhoneNo", Bio: "Bio", UID: "UID", UserProfile: "UserProfile"),
             ),
           );
         }
