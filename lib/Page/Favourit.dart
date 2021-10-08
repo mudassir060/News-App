@@ -6,58 +6,63 @@ import 'dart:convert';
 import 'package:news_app/widget/Showfullnews.dart';
 
 class Favourit extends StatefulWidget {
-  const Favourit({Key? key}) : super(key: key);
+  final Map UserData;
+  const Favourit({Key? key, required this.UserData}) : super(key: key);
 
   @override
   _FavouritState createState() => _FavouritState();
 }
 
-final String apiUrl =
-    // "https://newsapi.org/v2/everything?q=tesla&from=2021-08-29&sortBy=publishedAt&apiKey=279ff2d9334747f980557d5520f7a04f";
-    // Top headlines from TechCrunch right now
-    "https://news-node-app.herokuapp.com/favouritenews/favouritenewsget/mudassirmukhtar4@gmail.com";
-
-Future<List<dynamic>> fetchUsers() async {
-  print("=====================fetchUsers===========================");
-  var result = await http.post(
-    Uri.parse(apiUrl),
-  );
-  print("================================================");
-  print(result);
-  print(json.decode(result.body)["data"]);
-  return json.decode(result.body)["data"];
+String _title(dynamic source) {
+  return source['title'].toString();
 }
 
-  String _title(dynamic source) {
-    return source['title'].toString();
-  }
-  String _author(dynamic source) {
-    return source['author'].toString();
-  }
-  String _description(dynamic source) {
-    return source['description'].toString();
-  }
-  String _time(dynamic source) {
-    return source['publishedAt'].toString();
-  }
-  String _url(dynamic source) {
-    return source['url'].toString();
-  }
-  String _content(dynamic source) {
-    return source['content'].toString();
-  }
-  String _name(dynamic source) {
-    return source["source"]['name'].toString();
-  }
-  String _id(dynamic source) {
-    return source["source"]['id'].toString();
-  }
+String _author(dynamic source) {
+  return source['author'].toString();
+}
 
+String _description(dynamic source) {
+  return source['description'].toString();
+}
+
+String _time(dynamic source) {
+  return source['publishedAt'].toString();
+}
+
+String _url(dynamic source) {
+  return source['url'].toString();
+}
+
+String _content(dynamic source) {
+  return source['content'].toString();
+}
+
+String _name(dynamic source) {
+  return source["source"]['name'].toString();
+}
+
+String _id(dynamic source) {
+  return source["source"]['id'].toString();
+}
 
 class _FavouritState extends State<Favourit> {
   @override
   Widget build(BuildContext context) {
-    
+      final String apiUrl =
+      // "https://newsapi.org/v2/everything?q=tesla&from=2021-08-29&sortBy=publishedAt&apiKey=279ff2d9334747f980557d5520f7a04f";
+      // Top headlines from TechCrunch right now
+      "https://news-node-app.herokuapp.com/favouritenews/favouritenewsget/${widget.UserData['email']}";
+
+  Future<List<dynamic>> fetchUsers() async {
+    print("=====================fetchUsers===========================");
+    var result = await http.post(
+      Uri.parse(apiUrl),
+    );
+    print("======================fetchUsers==========================");
+    print(result);
+    print(json.decode(result.body)["data"]);
+    return json.decode(result.body)["data"];
+  }
     var vwidth = MediaQuery.of(context).size.width;
     var vhight = MediaQuery.of(context).size.height;
     return MaterialApp(
@@ -75,7 +80,7 @@ class _FavouritState extends State<Favourit> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                        builder: (context) => Showfullnews(
+                          builder: (context) => Showfullnews(
                             img: "${snapshot.data[index]['urlToImage']}",
                             titel: _title(snapshot.data[index]),
                             description: _description(snapshot.data[index]),
@@ -88,7 +93,7 @@ class _FavouritState extends State<Favourit> {
                             userEmail: 'Mudassirmukhtar4@gmail.com',
                             userName: 'Mudassir Mukhtar',
                           ),
-                         ),
+                        ),
                       );
                     },
                     child: Padding(

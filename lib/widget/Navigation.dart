@@ -1,9 +1,8 @@
-// ignore_for_file: avoid_print, file_names, prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: avoid_print, file_names, prefer_const_literals_to_create_immutables, prefer_const_constructors, unnecessary_null_comparison
 
 import 'package:flutter/material.dart';
 import 'package:news_app/Api/login.dart';
 import 'package:news_app/Page/Favourit.dart';
-import 'package:news_app/Page/Home.dart';
 import 'package:news_app/Page/HomeScreen/Headlines.dart';
 import 'package:news_app/Page/HomeScreen/PopularNews%20.dart';
 import 'package:news_app/Page/HomeScreen/SportsNews.dart';
@@ -11,6 +10,7 @@ import 'package:news_app/Page/HomeScreen/TopStories.dart';
 import 'package:news_app/Page/Profile.dart';
 import 'package:news_app/Page/Search.dart';
 import 'package:news_app/widget/Logout.dart';
+import 'package:news_app/widget/NotSigin.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class HomePage extends StatefulWidget {
@@ -71,16 +71,16 @@ class _HomePageState extends State<HomePage> {
     print(
         "{============================================================>${widget.UserData}}");
     final Page = [
-      Home(),
-      widget.UserData==null
-          ? Login()
-          : ProfilePage(
-              Name: widget.UserData['Name'],
-              Email: widget.UserData['email'],
-              PhoneNo: widget.UserData['phoneNo'],
-              UserProfile: "UserProfile",
-              Bio: "Bio"),
-      const Favourit(),
+      HomePage(
+        UserData: widget.UserData,
+      ),
+      widget.UserData == null
+          ? NotSigin()
+          : ProfilePage(UserData: widget.UserData),
+                widget.UserData == null
+          ? NotSigin()
+          :Favourit(UserData: widget.UserData) ,
+      
       const Logout()
     ];
 
@@ -111,8 +111,8 @@ class _HomePageState extends State<HomePage> {
                         //   radius: 50.0,
                         //   backgroundImage: NetworkImage("widget.UserProfile"),
                         // ),
-                     
-                        widget.UserData== null
+
+                        widget.UserData == null
                             ? TextButton(
                                 onPressed: () {
                                   Navigator.push(
@@ -291,15 +291,13 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ),
                                         ])
-                                  : const PreferredSize(
-                                      child: Text(""),
-                                      preferredSize: Size.fromHeight(0))),
+                                  :null),
                           body: _selectedIndex == 0
-                              ? const TabBarView(children: [
-                                  TopStories(),
-                                  Headlines(),
-                                  SportsNews(),
-                                  PopularNews(),
+                              ?  TabBarView(children: [
+                                  TopStories(UserData: widget.UserData),
+                                  Headlines(UserData: widget.UserData),
+                                  SportsNews(UserData: widget.UserData),
+                                  PopularNews(UserData: widget.UserData),
                                 ])
                               : Page[_selectedIndex],
                         ),

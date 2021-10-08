@@ -120,7 +120,7 @@ class Showfullnews extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton(
-                          onPressed: fetchUsers,
+                          onPressed: (){userEmail=="null"?fetchUsers:null;},
                           icon: const Icon(
                             Icons.favorite,
                             color: Colors.red,

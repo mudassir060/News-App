@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:news_app/Api/login.dart';
 import 'package:news_app/Page/Favourit.dart';
+import 'package:news_app/Page/SplashScreen.dart';
 import 'package:news_app/widget/Navigation.dart';
 import 'Page/Home.dart';
 
@@ -32,10 +33,10 @@ class _AppState extends State<App> {
         }
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return const MaterialApp(
+          return  MaterialApp(
             debugShowCheckedModeBanner: false,
             home: Scaffold(
-              body: Login(),
+              body: SplashScreen(),
             ),
           );
         }

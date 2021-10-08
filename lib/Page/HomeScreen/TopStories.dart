@@ -9,40 +9,49 @@ import 'dart:convert';
 import 'package:news_app/widget/Showfullnews.dart';
 
 class TopStories extends StatefulWidget {
-  const TopStories({Key? key}) : super(key: key);
+  final Map UserData;
+  const TopStories({Key? key, required this.UserData}) : super(key: key);
 
   @override
   _TopStoriesState createState() => _TopStoriesState();
 }
 
 class _TopStoriesState extends State<TopStories> {
+late String userEmail = "";
+late String userName ="";
   var Date;
 
   String _title(dynamic source) {
     return source['title'].toString();
   }
+
   String _author(dynamic source) {
     return source['author'].toString();
   }
+
   String _description(dynamic source) {
     return source['description'].toString();
   }
+
   String _time(dynamic source) {
     return source['publishedAt'].toString();
   }
+
   String _url(dynamic source) {
     return source['url'].toString();
   }
+
   String _content(dynamic source) {
     return source['content'].toString();
   }
+
   String _name(dynamic source) {
     return source["source"]['name'].toString();
   }
+
   String _id(dynamic source) {
     return source["source"]['id'].toString();
   }
-
   @override
   Widget build(BuildContext context) {
     var vwidth = MediaQuery.of(context).size.width;
@@ -78,6 +87,10 @@ class _TopStoriesState extends State<TopStories> {
               return GridView.count(
                 crossAxisCount: 2,
                 children: List.generate(snapshot.data.length, (index) {
+                  if (widget.UserData != null) {
+                    String userEmail = widget.UserData['email'];
+                    String userName = widget.UserData['Name'];
+                  }
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -93,8 +106,8 @@ class _TopStoriesState extends State<TopStories> {
                             name: _name(snapshot.data[index]),
                             url: _url(snapshot.data[index]),
                             author: _author(snapshot.data[index]),
-                            userEmail: 'Mudassirmukhtar4@gmail.com',
-                            userName: 'Mudassir Mukhtar',
+                            userEmail: userEmail,
+                            userName: userName,
                           ),
                         ),
                       );

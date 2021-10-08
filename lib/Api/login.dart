@@ -30,10 +30,9 @@ class _LoginState extends State<Login> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     // print("objectobjectobjectobjectobjectobjectobjectobjectobject");
-    // final String useremail = useremailcontroller.text;
-    // final String userpassword = userpasswordcontroller.text;
-    const String useremail = 'mudassirmukhtar4o@gmail.com';
-    const String userpassword = 'qwerty';
+    final String useremail = useremailcontroller.text;
+    final String userpassword = userpasswordcontroller.text;
+ 
     try {
       final UserCredential user = await auth.signInWithEmailAndPassword(
           email: useremail, password: userpassword);
@@ -264,23 +263,19 @@ class _LoginState extends State<Login> {
                                 ],
                               ),
                               // SizedBox(height: 10),
-                              FlatButton(
+                              ElevatedButton(
                                 child: const Text(
                                   'LogIn',
                                   // style: TextStyle(fontSize: 10.0),
                                 ),
-                                color: Colors.blueAccent,
-                                textColor: Colors.white,
                                 onPressed: register,
                               ),
                               SizedBox(height: 20),
-                              FlatButton(
+                              ElevatedButton(
                                 child: const Text(
                                   'Continue without login',
                                   // style: TextStyle(fontSize: 10.0),
                                 ),
-                                color: Colors.blueAccent,
-                                textColor: Colors.white,
                                 onPressed: () {
                                   var UserDate;
                                   Navigator.push(

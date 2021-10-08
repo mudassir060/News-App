@@ -3,18 +3,11 @@
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
-  final String Name;
-  final String Email;
-  final String PhoneNo;
-  final String UserProfile;
-  final String Bio;
+  final Map UserData;
+
   const ProfilePage({
     Key? key,
-    required this.Name,
-    required this.Email,
-    required this.PhoneNo,
-    required this.UserProfile,
-    required this.Bio,
+ required this.UserData,
   }) : super(key: key);
 
   @override
@@ -63,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         width: 100,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: NetworkImage("${widget.UserProfile}"),
+                              image: NetworkImage("${widget.UserData["UserProfile"]}"),
                               fit: BoxFit.cover),
                           shape: BoxShape.circle,
                         ),
@@ -81,25 +74,25 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Data(
                                     icon: Icons.person,
                                     titel: "Name",
-                                    subtitel: widget.Name),
+                                    subtitel: widget.UserData['Name']),
                                 Line(),
                                 // // // // // // // // // // // // // // // // // // // Email // // // // // // // // // // // // // // // // // //
                                 Data(
                                     icon: Icons.email,
                                     titel: "Email",
-                                    subtitel: widget.Email),
+                                    subtitel: widget.UserData['email']),
                                 Line(),
                                 // // // // // // // // // // // // // // // // // // // Phone Number // // // // // // // // // // // // // // // // // //
                                 Data(
                                     icon: Icons.phone,
                                     titel: "Phone Number",
-                                    subtitel: widget.PhoneNo),
+                                    subtitel: widget.UserData['phoneNo']),
                                 Line(),
                                 // // // // // // // // // // // // // // // // // // // About // // // // // // // // // // // // // // // // // //
-                                Data(
+                                const Data(
                                     icon: Icons.info,
                                     titel: "About",
-                                    subtitel: widget.Bio),
+                                    subtitel: "Bio"),
                                 Line(),
                                 // // // // // // // // // // // // // // // // // // //  // // // // // // // // // // // // // // // // // //
                               ],

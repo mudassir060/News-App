@@ -9,7 +9,8 @@ import 'dart:convert';
 import 'package:news_app/widget/Showfullnews.dart';
 
 class PopularNews extends StatefulWidget {
-  const PopularNews({Key? key}) : super(key: key);
+      final Map UserData;
+  const PopularNews({Key? key, required this.UserData}) : super(key: key);
 
   @override
   _PopularNewsState createState() => _PopularNewsState();
@@ -17,6 +18,8 @@ class PopularNews extends StatefulWidget {
 
 class _PopularNewsState extends State<PopularNews> {
   var Date;
+late String userEmail = "";
+late String userName ="";
   String _title(dynamic source) {
     return source['title'].toString();
   }
@@ -78,6 +81,10 @@ class _PopularNewsState extends State<PopularNews> {
               return GridView.count(
                 crossAxisCount: 2,
                 children: List.generate(snapshot.data.length, (index) {
+                  if (widget.UserData != null) {
+                    String userEmail = widget.UserData['email'];
+                    String userName = widget.UserData['Name'];
+                  }
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -93,8 +100,8 @@ class _PopularNewsState extends State<PopularNews> {
                             name: _name(snapshot.data[index]),
                             url: _url(snapshot.data[index]),
                             author: _author(snapshot.data[index]),
-                            userEmail: 'Mudassirmukhtar4@gmail.com',
-                            userName: 'Mudassir Mukhtar',
+                            userEmail: userEmail,
+                            userName: userName,
                           ),
                            ),
                       );
