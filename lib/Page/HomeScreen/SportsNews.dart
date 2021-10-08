@@ -19,20 +19,30 @@ class _SportsNewsState extends State<SportsNews> {
   var Date;
 
   String _title(dynamic source) {
-    return source['title'];
+    return source['title'].toString();
   }
   String _author(dynamic source) {
-    return source['author'];
+    return source['author'].toString();
   }
   String _description(dynamic source) {
-    return source['description'];
+    return source['description'].toString();
   }
   String _time(dynamic source) {
-    return source['publishedAt'];
+    return source['publishedAt'].toString();
   }
   String _url(dynamic source) {
-    return source['publishedAt'];
+    return source['url'].toString();
   }
+  String _content(dynamic source) {
+    return source['content'].toString();
+  }
+  String _name(dynamic source) {
+    return source["source"]['name'].toString();
+  }
+  String _id(dynamic source) {
+    return source["source"]['id'].toString();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -74,12 +84,19 @@ class _SportsNewsState extends State<SportsNews> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => Showfullnews(
-                              img: "${snapshot.data[index]['urlToImage']}",
-                              titel: _title(snapshot.data[index]),
-                              description: _description(snapshot.data[index]),
-                              time: _time(snapshot.data[index]),
-                              author: _author(snapshot.data[index])),
-                        ),
+                            img: "${snapshot.data[index]['urlToImage']}",
+                            titel: _title(snapshot.data[index]),
+                            description: _description(snapshot.data[index]),
+                            time: _time(snapshot.data[index]),
+                            content: _content(snapshot.data[index]),
+                            id: _id(snapshot.data[index]),
+                            name: _name(snapshot.data[index]),
+                            url: _url(snapshot.data[index]),
+                            author: _author(snapshot.data[index]),
+                            userEmail: 'Mudassirmukhtar4@gmail.com',
+                            userName: 'Mudassir Mukhtar',
+                          ),
+                         ),
                       );
                     },
                     child: Padding(

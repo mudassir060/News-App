@@ -62,7 +62,7 @@ class _LoginState extends State<Login> {
         MaterialPageRoute(
           builder: (context) => HomePage(
               Name: Name,
-              Email: Email,
+              Email: useremail,
               PhoneNo: PhoneNo,
               Bio: Bio,
               UID: UID,

@@ -19,19 +19,28 @@ class _HeadlinesState extends State<Headlines> {
   var Date;
 
   String _title(dynamic source) {
-    return source['title'];
+    return source['title'].toString();
   }
   String _author(dynamic source) {
-    return source['author'];
+    return source['author'].toString();
   }
   String _description(dynamic source) {
-    return source['description'];
+    return source['description'].toString();
   }
   String _time(dynamic source) {
-    return source['publishedAt'];
+    return source['publishedAt'].toString();
   }
   String _url(dynamic source) {
-    return source['publishedAt'];
+    return source['url'].toString();
+  }
+  String _content(dynamic source) {
+    return source['content'].toString();
+  }
+  String _name(dynamic source) {
+    return source["source"]['name'].toString();
+  }
+  String _id(dynamic source) {
+    return source["source"]['id'].toString();
   }
 
   @override
@@ -41,17 +50,18 @@ class _HeadlinesState extends State<Headlines> {
     var dt = DateTime.now();
     var newFormat = DateFormat("yy-MM-dd");
     String updatedDt = newFormat.format(dt);
-      final String apiUrl ="https://newsapi.org/v2/top-headlines?from=$updatedDt&pageSize=10&sortBy=publishedAt&language=en&apiKey=279ff2d9334747f980557d5520f7a04f";
-      // "https://newsapi.org/v2/everything?q=tesla&from=2021-08-29&sortBy=publishedAt&apiKey=279ff2d9334747f980557d5520f7a04f";
-      // Top headlines from TechCrunch right now
-      // "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=279ff2d9334747f980557d5520f7a04f";
+    final String apiUrl =
+        "https://newsapi.org/v2/top-headlines?from=$updatedDt&pageSize=10&sortBy=publishedAt&language=en&apiKey=279ff2d9334747f980557d5520f7a04f";
+    // "https://newsapi.org/v2/everything?q=tesla&from=2021-08-29&sortBy=publishedAt&apiKey=279ff2d9334747f980557d5520f7a04f";
+    // Top headlines from TechCrunch right now
+    // "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=279ff2d9334747f980557d5520f7a04f";
 
-  Future<List<dynamic>> fetchUsers() async {
-    var result = await http.get(Uri.parse(apiUrl));
-    // print("================================================");
-    // print(json.decode(result.body)["articles"]);
-    return json.decode(result.body)["articles"];
-  }
+    Future<List<dynamic>> fetchUsers() async {
+      var result = await http.get(Uri.parse(apiUrl));
+      // print("================================================");
+      // print(json.decode(result.body)["articles"]);
+      return json.decode(result.body)["articles"];
+    }
 
     print(updatedDt); // 20-04-03
     // var addDt = DateTime.now();
@@ -59,7 +69,7 @@ class _HeadlinesState extends State<Headlines> {
     // var subDt = DateTime.now().subtract(Duration(days: 10, hours: 10));
     // print(addDt.isBefore(subDt)); // tr
     return MaterialApp(
-            debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: FutureBuilder<List<dynamic>>(
           future: fetchUsers(),
@@ -74,11 +84,18 @@ class _HeadlinesState extends State<Headlines> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => Showfullnews(
-                              img: "${snapshot.data[index]['urlToImage']}",
-                              titel: _title(snapshot.data[index]),
-                              description: _description(snapshot.data[index]),
-                              time: _time(snapshot.data[index]),
-                              author: _author(snapshot.data[index])),
+                            img: "${snapshot.data[index]['urlToImage']}",
+                            titel: _title(snapshot.data[index]),
+                            description: _description(snapshot.data[index]),
+                            time: _time(snapshot.data[index]),
+                            content: _content(snapshot.data[index]),
+                            id: _id(snapshot.data[index]),
+                            name: _name(snapshot.data[index]),
+                            url: _url(snapshot.data[index]),
+                            author: _author(snapshot.data[index]),
+                            userEmail: 'Mudassirmukhtar4@gmail.com',
+                            userName: 'Mudassir Mukhtar',
+                          ),
                         ),
                       );
                     },

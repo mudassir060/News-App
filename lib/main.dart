@@ -32,11 +32,11 @@ class _AppState extends State<App> {
         }
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
+          return const MaterialApp(
             debugShowCheckedModeBanner: false,
             home: Scaffold(
-              // body: Login(),
-              body: HomePage(Name: "Name", Email: "Email", PhoneNo: "PhoneNo", Bio: "Bio", UID: "UID", UserProfile: "UserProfile"),
+              body: Login(),
+              // body: HomePage(Name: "Name", Email: "Email", PhoneNo: "PhoneNo", Bio: "Bio", UID: "UID", UserProfile: "UserProfile"),
             ),
           );
         }

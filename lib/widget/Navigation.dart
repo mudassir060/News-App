@@ -74,13 +74,12 @@ class _HomePageState extends State<HomePage> {
           ),
           buttons: [
             DialogButton(
-              onPressed: () =>                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Search(Text:_search),
-                        ),
-                      ),
-              
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Search(Text: _search),
+                ),
+              ),
               child: Text(
                 "Search",
                 style: TextStyle(color: Colors.white, fontSize: 20),
