@@ -18,7 +18,6 @@ class _LoginState extends State<Login> {
   String Name = '';
   String Email = '';
   String PhoneNo = '';
-  String Bio = '';
   String UID = '';
   String UserProfile = '';
 
@@ -33,7 +32,7 @@ class _LoginState extends State<Login> {
     // print("objectobjectobjectobjectobjectobjectobjectobjectobject");
     // final String useremail = useremailcontroller.text;
     // final String userpassword = userpasswordcontroller.text;
-    const String useremail = 'mudassirmukhtar4@gmail.com';
+    const String useremail = 'mudassirmukhtar4o@gmail.com';
     const String userpassword = 'qwerty';
     try {
       final UserCredential user = await auth.signInWithEmailAndPassword(
@@ -56,19 +55,19 @@ class _LoginState extends State<Login> {
         print(
             "===================Get data form mongodb =============================");
         print(json.decode(result.body));
+        // print("Name"+json.decode(result.body)['result']["Name"]);
+        // print("email"+json.decode(result.body)['result']["email"]);
+        // print("phoneNo"+json.decode(result.body)['result']["phoneNo"]);
+
+        // print(result.body["email"]);
         // print(json.decode(result.body[0]));
-              Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomePage(
-              Name: Name,
-              Email: useremail,
-              PhoneNo: PhoneNo,
-              Bio: Bio,
-              UID: UID,
-              UserProfile: UserProfile),
-        ),
-      );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                HomePage(UserData: json.decode(result.body)['result']),
+          ),
+        );
         return json.decode(result.body);
       }
 
@@ -97,7 +96,6 @@ class _LoginState extends State<Login> {
       //     ),
       //   ),
       // );
-
 
       // ++++++++++++++++++++faile++++++++++++++++++++
       // Navigator.pushReplacementNamed(context, '/Home', arguments: {
@@ -276,6 +274,26 @@ class _LoginState extends State<Login> {
                                 onPressed: register,
                               ),
                               SizedBox(height: 20),
+                              FlatButton(
+                                child: const Text(
+                                  'Continue without login',
+                                  // style: TextStyle(fontSize: 10.0),
+                                ),
+                                color: Colors.blueAccent,
+                                textColor: Colors.white,
+                                onPressed: () {
+                                  var UserDate;
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => HomePage(
+                                          UserData: UserDate),
+                                    ),
+                                  );
+                                },
+                              ),
+                              SizedBox(height: 20),
+
                               // SignInButton(
                               //   Buttons.Google,
                               //   onPressed: () {

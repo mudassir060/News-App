@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, file_names, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:news_app/Api/login.dart';
 import 'package:news_app/Page/Favourit.dart';
 import 'package:news_app/Page/Home.dart';
 import 'package:news_app/Page/HomeScreen/Headlines.dart';
@@ -14,20 +15,10 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 
 class HomePage extends StatefulWidget {
   // const HomePage({Key? key}) : super(key: key);
-  final String Name;
-  final String Email;
-  final String PhoneNo;
-  final String UserProfile;
-  final String Bio;
-  final String UID;
+  final Map UserData;
+
   // ignore: non_constant_identifier_names
-  HomePage(
-      {required this.Name,
-      required this.Email,
-      required this.PhoneNo,
-      required this.Bio,
-      required this.UID,
-      required this.UserProfile});
+  HomePage({required this.UserData});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -37,21 +28,9 @@ class _HomePageState extends State<HomePage> {
   double value = 0;
   var Navigatio = 0;
   int _selectedIndex = 0;
-  var appBarTitleText = const Center(child: Text("PAk News"));
+  var appBarTitleText = const Center(child: Text("PAK News"));
   @override
   Widget build(BuildContext context) {
-    // ignore: non_constant_identifier_names
-    final Page = [
-      Home(),
-      const ProfilePage(
-          Name: "Name",
-          Email: "Email",
-          PhoneNo: "PhoneNo",
-          UserProfile: "UserProfile",
-          Bio: "Bio"),
-      const Favourit(),
-      const Logout()
-    ];
     _openPopup(context) {
       String _search = '';
       Alert(
@@ -88,6 +67,23 @@ class _HomePageState extends State<HomePage> {
           ]).show();
     }
 
+    print('+++++++++++++++++++++++++++++++++++++');
+    print(
+        "{============================================================>${widget.UserData}}");
+    final Page = [
+      Home(),
+      widget.UserData==null
+          ? Login()
+          : ProfilePage(
+              Name: widget.UserData['Name'],
+              Email: widget.UserData['email'],
+              PhoneNo: widget.UserData['phoneNo'],
+              UserProfile: "UserProfile",
+              Bio: "Bio"),
+      const Favourit(),
+      const Logout()
+    ];
+
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 600),
@@ -111,18 +107,28 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          radius: 50.0,
-                          backgroundImage: NetworkImage(widget.UserProfile),
-                        ),
-                        const SizedBox(
-                          height: 10.0,
-                        ),
-                        Text(
-                          widget.Name,
-                          style: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
+                        // CircleAvatar(
+                        //   radius: 50.0,
+                        //   backgroundImage: NetworkImage("widget.UserProfile"),
+                        // ),
+                     
+                        widget.UserData== null
+                            ? TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Login(),
+                                    ),
+                                  );
+                                },
+                                child: Text("Login"))
+                            : Text(
+                                widget.UserData['Name'],
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              )
                       ],
                     )),
                     Expanded(

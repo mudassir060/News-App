@@ -1,3 +1,5 @@
+// ignore_for_file: annotate_overrides
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:news_app/Api/login.dart';
@@ -12,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 3),
+        Duration(seconds: 4),
         () => Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Login())));
   }
@@ -25,18 +27,23 @@ class _SplashScreenState extends State<SplashScreen> {
         begin: Alignment.topRight,
         end: Alignment.bottomLeft,
         colors: [
-          Colors.red.shade900,
-          Colors.red.shade900,
+          Colors.black,
+          Colors.black,
         ],
       )),
-      child: Stack(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: CircleAvatar(
-              radius: 80,
-              backgroundImage: AssetImage(
-                "assets/bbc news.jpg",
+          Container(
+            height: MediaQuery.of(context).size.width - 160,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                image: AssetImage('images/news.gif'),
+                fit: BoxFit.fill,
               ),
+              shape: BoxShape.rectangle,
             ),
           ),
         ],

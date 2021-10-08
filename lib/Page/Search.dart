@@ -32,25 +32,31 @@ class _SearchState extends State<Search> {
   String _description(dynamic source) {
     return source['description'];
   }
+
   String _time(dynamic source) {
     return source['publishedAt'];
   }
+
   String _url(dynamic source) {
     return source['url'];
   }
+
   String _content(dynamic source) {
     return source['content'];
   }
+
   String _name(dynamic source) {
     return source['name'];
   }
+
   String _id(dynamic source) {
     return source["source"]['id'];
   }
 
-
   @override
   Widget build(BuildContext context) {
+    print("======================================>>>>>");
+    print(widget.Text);
     var vwidth = MediaQuery.of(context).size.width;
     var vhight = MediaQuery.of(context).size.height;
     var dt = DateTime.now();
@@ -73,7 +79,7 @@ class _SearchState extends State<Search> {
     // var subDt = DateTime.now().subtract(Duration(days: 10, hours: 10));
     // print(addDt.isBefore(subDt)); // tr
     return MaterialApp(
-            debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: FutureBuilder<List<dynamic>>(
           future: fetchUsers(),
@@ -87,7 +93,7 @@ class _SearchState extends State<Search> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Showfullnews(
+                          builder: (context) => Showfullnews(
                             img: "${snapshot.data[index]['urlToImage']}",
                             titel: _title(snapshot.data[index]),
                             description: _description(snapshot.data[index]),

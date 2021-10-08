@@ -17,10 +17,6 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
-  var UserProfile =
-      "https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744034?b=1&k=6&m=1016744034&s=612x612&w=0&h=dbicqM9p31ex5Lm-FpsdOjHkPZM_6Lmkb02qJO9SY5E=";
-  @override
-  Widget build(BuildContext context) {
     final TextEditingController usernamecontroller = TextEditingController();
     final TextEditingController useremailcontroller = TextEditingController();
     final TextEditingController phonenocontroller = TextEditingController();
@@ -31,6 +27,10 @@ class _RegistrationState extends State<Registration> {
     String UID = '';
     FirebaseAuth auth = FirebaseAuth.instance;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
+  var UserProfile =
+      "https://media.istockphoto.com/vectors/profile-placeholder-image-gray-silhouette-no-photo-vector-id1016744034?b=1&k=6&m=1016744034&s=612x612&w=0&h=dbicqM9p31ex5Lm-FpsdOjHkPZM_6Lmkb02qJO9SY5E=";
+  @override
+  Widget build(BuildContext context) {
 
     // print("objectobjectobjectobjectobjectobjectobjectobjectobject");
 
@@ -242,7 +242,7 @@ class _RegistrationState extends State<Registration> {
                                 width: 220,
                                 decoration: BoxDecoration(
                                   image: const DecorationImage(
-                                    image: AssetImage('images/Logo.png'),
+                                    image: AssetImage('images/news.gif'),
                                     fit: BoxFit.fill,
                                   ),
                                   borderRadius: BorderRadius.circular(10),
